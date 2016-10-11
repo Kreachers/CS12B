@@ -1,0 +1,50 @@
+import java.util.*;
+import java.io.*;
+
+/*
+  the purpose of this program is to take an imput and search though a
+  text file and look for anagrams of the input word
+  Author: Devin Siems
+*/
+
+class FindAnagrams{
+    public static void main(String[] args) throws FileNotFoundException {
+	Scanner in = new Scanner(new FileInputStream(args[0]));
+	String[] wordsArray = new String[in.nextInt()];
+	
+	Scanner scan = new Scanner(System.in);
+	System.out.println("type a string of letters");
+	String word = scan.next();
+	
+	for(int i = 0; i < wordsArray.length; i++){
+	    wordsArray[i] = in.next();
+	}
+	boolean temp[] = new boolean[word.length()];
+	Arrays.fill(temp, true);
+	for(int i = 0; i < wordsArray.length; i++){
+	    if(word.length() == wordsArray[i].length()){
+		for(int j = 0; j < word.length(); j++){
+		    for(int k =0; k < wordsArray[i].length(); k++){
+			if(word.charAt(j) != wordsArray[i].charAt(k)){
+			    temp[j] = false;
+			}else if( word.charAt(j) == wordsArray[i].charAt(k)){
+			    temp[j] = true;
+			    }
+		    }
+	      	}
+		for(int m = 0; i < word.length(); i++){
+		    if(temp[i] == false){
+			i = word.length();
+		    }else if(temp[i] == true){
+			System.out.println(wordsArray[i]);
+		    }
+		}
+	    }
+	}
+	
+	//	for(int i = 0; i < wordsArray.length; i++){
+	//	    System.out.println(wordsArray[i]);
+	//	}
+	//System.out.println(word);
+    }
+}
