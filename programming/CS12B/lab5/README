@@ -1,1 +1,20 @@
-Edit before submitting
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// 01A lab5
+// 11/4/16
+// README File
+// ------------------------------------------------
+
+README               README file
+Makefile             Makefile for DictionaryClient.c, compiles
+
+Dictionary.c         Implements Dictionary ADT (C version of Dictionary.java)
+DictionaryTest.c     Test each part of Dictionary.c
+Dictionary.h         Given, HEader file for Dictionary ADT
+DictionaryClient.c   Given, Test client
+
+Correct Usage
+
+	make
+	./DictionaryClient

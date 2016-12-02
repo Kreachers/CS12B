@@ -1,1 +1,18 @@
-Edit before submitting
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// 01A lab4
+// 10/27/16
+// README File
+// ------------------------------------------------
+
+README             Table of contents for submitted files
+Makefile           Compiles FileReverse class into jar, can also clean up files
+charType.c         Takes in 2 arguments, an input file and an output file, it computes the 
+                      number of alphabetical, numerical, and white space characters in the 
+                      inpute file and prints it to the output file
+
+Correct Usage
+
+	make
+	./charType <input file> <output file>

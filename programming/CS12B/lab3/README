@@ -1,1 +1,16 @@
-Edit before submitting
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// 01A lab3
+// 10/16/16
+// README File
+// ------------------------------------------------
+
+README             Table of contents for submitted files
+Makefile           Compiles FileReverse class into jar, can also clean up files
+FileReverse.c      Reverses strings of text from "in" file, prints them to "out" file
+
+correct usage
+
+	make
+	./FileReverse <input file> <output file>

@@ -1,1 +1,28 @@
-Edit before submitting
+
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// 01A PA4
+// 11/20/16
+// README File
+// ------------------------------------------------
+
+README                       Table of contents for submitted file
+Makefile                     Compiles Search class into jar, can also clean up files
+
+Written:
+  Simulation.java             A simulation of a a queue of jobs ona processor
+  Queue.java                  Queue ADT
+  QueueTest.java              Test each part of the Queue ADT
+  QueueEmptyException.java    Exception handling an empty queue
+ 
+Given:
+  QueueInterface.java
+  Job.java
+
+Correct Usage
+
+        make
+        ./Simulation file
+
+

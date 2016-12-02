@@ -1,1 +1,24 @@
-Edit before submitting
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// 01A lab5
+// 11/15/16
+// README File
+// ------------------------------------------------
+
+README               README file
+Makefile             Makefile 
+
+Written:
+List.java       List ADT
+ListTest.java   Test file ofr testing the List ADT
+
+Given:
+ListInterface.java
+ListIndexOutOfBoundsException.java
+ListClient.java
+
+Correct Usage
+
+	make
+	./ListClient

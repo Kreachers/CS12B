@@ -1,1 +1,25 @@
-Edit before submitting
+
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// 01A PA2
+// 11/1/16
+// README File
+// ------------------------------------------------
+
+README                       Table of contents for submitted file
+Makefile                     Compiles Search class into jar, can also clean up files
+
+DictionaryClient.java        The Official Dictionary client from the professor
+DictionaryTest.java          Tests the functions within the Dictionary.java
+Dictionary.java              Holds the fuctions necessary for the linked list
+DictionaryInterface.java     The interface for the Dictionary functions
+DuplicateKeyException.java   Contains the exception to throw when there are multiple keys
+KeyNotFoundException.java    Contains the exception to thorw when the key cant be foune
+
+correct usage
+
+        make
+        ./DictionaryClient
+
+

@@ -1,1 +1,20 @@
-Edit before submitting
+
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// 01A PA2
+// 10/10/16
+// README File
+// ------------------------------------------------
+
+README             Table of contents for submitted files
+Makefile           Compiles Search class into jar, can also clean up files
+Search.java	   intakes a text file and a number of target words. 
+		   It then returns what line the target words are on, if they are found
+
+correct usage
+
+        make
+        Search <input file> target1 [ target2 target3 ...]
+
+

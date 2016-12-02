@@ -1,1 +1,24 @@
-Edit before submitting
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// 01A lab7
+// 11/25/16
+// README File
+// ------------------------------------------------
+
+README               README file
+Makefile             Makefile 
+
+Written:
+Dictionary.java	              the dictionary ADT with BST
+
+Given:
+DictionaryInterface.java
+DuplicateKeyException.java
+KeyNotFoundException.java
+DictionaryClient.java
+
+Correct Usage
+
+	make
+	./DictionaryClient
