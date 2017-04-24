@@ -1,0 +1,35 @@
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// PA4
+// 2/15/17
+// README File
+// ------------------------------------------------
+
+List.c
+Implementation of doubly linked list ADT that stores integers as data.
+
+List.h
+Header of doubly linked list ADT that stores integers as data.
+
+Graph.c
+Implementation of Graph ADT that performs BST on an input file.
+
+Graph.h
+Header of Graph ADT that performs BEST on an input file.
+
+GraphTest.c
+Client test for the Graph ADT which performs all the public
+actions available.
+
+FindPath.c
+Uses the Graph ADT and an input file to solve the single source
+shortest path problem.
+
+Makefile
+Boilerplate file in Make that compiles all 
+sources and header files into an executable.
+
+README
+A file containing a table of contents for the source
+code and other related files.

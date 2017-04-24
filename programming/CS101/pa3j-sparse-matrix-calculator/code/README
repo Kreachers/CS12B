@@ -1,0 +1,31 @@
+// ------------------------------------------------
+// Devin Siems
+// dsiems@ucsc.edu
+// PA1
+// 1/18/17
+// README File
+// ------------------------------------------------
+
+README				Table of contents for submitted file
+Makefile			Compiles Search class into jar, can also
+					clean up files
+
+Written:
+	List.java		A doubly linked list creating a List ADT. The nodes data is
+					an Entry object that contains column number and double value.
+	ListTest.java		The client test for the List ADT, which we had to create.
+
+	Sparse.java		A client module that will load in a input file that represents
+					a matrix, and outputs commands on that matrix.
+	Matrix.java		An array of Lists that hold the matrix rows one for each array spot.
+	
+	MatrixClient.java	The client test for the Matrix, which we had to create.
+
+
+Given:
+	Nothing
+
+Correct Usage:
+
+	make
+	./Sparse inputFile outFile

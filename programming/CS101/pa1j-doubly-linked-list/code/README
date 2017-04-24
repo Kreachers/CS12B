@@ -1,0 +1,24 @@
+Bradley Bernard, bmbernar@ucsc.edu
+CS 101: PA1
+June 25, 2015
+
+List.java
+A doubly linked list creating a List ADT. The nodes data is
+an int and there are prev and next pointers to other nodes.
+
+ListClient.java
+The client test for the List ADT, which was provided
+for us already.
+
+Lex.java
+A client module that will sort a input file and 
+output the sorted contents into a given filename.
+
+Makefile
+A boilerplate file in Make taken from the PA1 directory
+to compile all java files into a jar for the
+current directory.
+
+README
+A file containing a table of contents for the source
+code and other related files.

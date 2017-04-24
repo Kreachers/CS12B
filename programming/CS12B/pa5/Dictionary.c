@@ -1,8 +1,8 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<string.h>
-#include<assert.h>
-#include"Dictionary.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include "Dictionary.h"
 
 //private types and fucntions---------------------------------
 
@@ -22,7 +22,7 @@ typedef NodeObj* Node;
 // constructor for private Node Type
 Node newNode(char* k, char*v){
    Node N = malloc(sizeof(NodeObj));
-   assert(N!=NULL);
+   assert(N != NULL);
    N->key = k;
    N->value = v;
    N->next = NULL;
@@ -30,7 +30,7 @@ Node newNode(char* k, char*v){
 }
 
 void freeNode(Node* pN){
-   if(pN!=NULL && *pN!=NULL){
+   if(pN != NULL && *pN != NULL){
       free(*pN);
       *pN = NULL;
    }
@@ -82,7 +82,7 @@ void freeArray(Dictionary D){
 //constructor for the Dictioary type
 Dictionary newDictionary(void){
    Dictionary S = malloc(sizeof(DictionaryObj));
-   assert(S!=NULL);
+   assert(S != NULL);
    S->H = malloc(sizeof(NodeObj)*tableSize);   
    S->numItems = 0;
    return S;
@@ -91,7 +91,7 @@ Dictionary newDictionary(void){
 //freeDictionary()
 //destructor for the Dictionary type
 void freeDictionary(Dictionary *pD){
-   if( pD!=NULL && *pD!=NULL){
+   if( pD != NULL && *pD != NULL){
       if (!isEmpty(*pD)){
          makeEmpty(*pD);
       }
@@ -105,11 +105,11 @@ void freeDictionary(Dictionary *pD){
 //returns 1 (true) id S is empty, 0 (false) otherwise
 //pre: none
 int isEmpty(Dictionary D){
-   if(D==NULL){
+   if(D == NULL){
       fprintf(stderr, "Dictionary Error: calling isEmpty() on NULL Dictionary reference\n");
       exit(EXIT_FAILURE);
    }
-   return(D->numItems==0);
+   return(D->numItems == 0);
 }
 
 
@@ -117,7 +117,7 @@ int isEmpty(Dictionary D){
 // returns the number of (key, value) pairs in D
 // pre: none
 int size(Dictionary D){
-   if(D==NULL){
+   if(D == NULL){
       fprintf(stderr, "Dictionary Error: calling size() on NULL Dictionary reference\n");
       exit(EXIT_FAILURE);
    }
@@ -130,17 +130,17 @@ int size(Dictionary D){
 // pre: none
 char* lookup(Dictionary D, char* k){
    int m;
-   if(D==NULL){
+   if(D == NULL){
       fprintf(stderr, "Dictionary Error: calling lookup() on NULL Dictionary reference\n");
       exit(EXIT_FAILURE);
    }
-   m=hash(k);
+   m = hash(k);
    Node N = D->H[m];
-   if(N==NULL){
+   if(N == NULL){
       return NULL;
    }else{
-      for( ;N!=NULL;N=N->next){
-         if(strcmp(N->key,k)==0){
+      for( ;N != NULL;N = N->next){
+         if(strcmp(N->key,k) == 0){
             return N->value;
          }
       }
@@ -153,24 +153,24 @@ char* lookup(Dictionary D, char* k){
 // pre: lookup(D, k)==NULL
 void insert(Dictionary D, char* k, char* v){
    int m;
-   if(D==NULL){
+   if(D == NULL){
      fprintf(stderr, "Dictionary Error: calling insert() on NULL Dictionary reference\n");
      exit(EXIT_FAILURE);
    }
-   if(lookup(D,k)!=NULL){
+   if(lookup(D,k) != NULL){
       fprintf(stderr, "Dictionary Error: calling insert() on a non-existent key\n");
       exit(EXIT_FAILURE);
    }
-   m=hash(k);
+   m = hash(k);
    Node N;
-   if(D->H[m]==NULL){
+   if(D->H[m] == NULL){
       N = newNode(k,v);
       N->next = D->H[m];
       D->H[m] = N;
       D->numItems++;
    }else{
       N = D->H[m];   
-      for( ;N!=NULL;N=N->next){}
+      for( ;N != NULL;N = N->next){}
       Node P = N->next;
       N->next = newNode(k,v);
       N = N->next;
@@ -184,11 +184,11 @@ void insert(Dictionary D, char* k, char* v){
 // pre: lookup(D, k)!=NULL
 void delete(Dictionary D, char* k){
    int m;
-   if(D==NULL){
+   if(D == NULL){
       fprintf(stderr, "Dictionary Error: calling delete() on NULL Dictionary reference\n");
       exit(EXIT_FAILURE);
    }
-   if(lookup(D, k)==NULL){
+   if(lookup(D, k) == NULL){
       fprintf(stderr, "Dictionary Error: calling delete() on a non-existent key\n");
       exit(EXIT_FAILURE);
    }
@@ -202,12 +202,12 @@ void delete(Dictionary D, char* k){
       D-> numItems--;
    }else{
       for( ;N->next!=P;N=N->next){}
-      N->next=P->next;
-      P->next=NULL;
+      N->next = P->next;
+      P->next = NULL;
       D->numItems--;
    }
    freeNode(&P);
-   P=NULL;
+   P = NULL;
 }
 
 // makeEmpty()
@@ -215,16 +215,16 @@ void delete(Dictionary D, char* k){
 // pre: none
 void makeEmpty(Dictionary D){
     int i;
-    if(D==NULL){
+    if(D == NULL){
       fprintf(stderr, "Dictionary Error: calling makeEmpty() on NULL Dictionary reference\n");
       exit(EXIT_FAILURE);
    }
-   for(i=0;i<tableSize;i++){
-      Node N=D->H[i];
+   for(i = 0; i < tableSize; i++){
+      Node N = D->H[i];
       char *key;
-      for( ;N!=NULL;N=N->next){
+      for( ;N != NULL;N = N->next){
          key = N->key;
-         delete(D,key);
+         delete(D, key);
       }
    }
    D->numItems = 0;
@@ -235,13 +235,13 @@ void makeEmpty(Dictionary D){
 // prints a text representation of D to the file pointed to by out
 void printDictionary(FILE* out, Dictionary D){
    int i;
-   if(D==NULL){
+   if(D == NULL){
       fprintf(stderr, "Dictionary Error: calling printDictionary() on NULL Dictionary reference\n");
       exit(EXIT_FAILURE);
    }   
-   for(i=0;i<tableSize;i++){
-      if(D->H[i]!=NULL){
-         for(Node N=D->H[i];N!=NULL;N=N->next){
+   for(i = 0; i < tableSize; i++){
+      if(D->H[i] != NULL){
+         for(Node N = D->H[i];N!=NULL;N = N->next){
             fprintf(out,"%s %s\n",N->key,N->value);
          }
       }

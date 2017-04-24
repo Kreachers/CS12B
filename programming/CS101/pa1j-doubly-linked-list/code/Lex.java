@@ -1,0 +1,85 @@
+// Bradley Bernard, bmbernar@ucsc.edu
+// CS 101: PA1
+// June 25, 2015
+//
+// Lex.java
+// Sorts the input file using a List ADT and writing
+// to an output file.
+
+import java.io.*;
+import java.util.Scanner;
+
+public class Lex {
+   public static void main(String[] args) throws IOException {
+      // Initialize variables
+      Scanner in = null;
+      PrintWriter out = null;
+      String line = null;
+      String[] token = null;
+      int lineNumber = -1;
+      
+      // Check if two arguments are passed
+      if(args.length != 2) {
+         System.err.println("Usage: Lex input output");
+         System.exit(1);
+      }
+
+      in = new Scanner(new File(args[0]));
+
+      // Count lines of the file
+      int lines = 0;
+      while(in.hasNextLine()) {
+         ++lines;
+         in.nextLine();
+      }
+
+      in.close();
+      in = null;
+
+      // Recreate Scanner and create String array and List
+      List list = new List();
+      token = new String[lines];
+      in = new Scanner(new File(args[0]));
+      out = new PrintWriter(new FileWriter(args[1]));
+
+      // Put all lines of the file into the String array
+      while(in.hasNextLine()) {
+         token[++lineNumber] = in.nextLine();
+      }
+     
+      // Put first line of the input file into list (already sorted)
+      list.append(0);
+
+      // Insertion Sort for (length - 1) elements
+      for(int j = 1; j < token.length; ++j) {
+         String tmp = token[j];
+         int i = j - 1;
+         // Reset list index to the back so we are able to 
+         // movePrev() to find the right index
+         list.moveBack();
+         // String compare the current line and each line in the list
+         while(i >= 0 && tmp.compareTo(token[list.get()]) <= 0) {
+            --i;
+            list.movePrev();
+         }
+         // Exited loop before moving off so insertAfter() index
+         if(list.index() >= 0)
+            list.insertAfter(j);
+         // Fell off the list so the new element must be prepend()
+         else
+            list.prepend(j);
+      }
+
+      // Reset index to the front of the List
+      list.moveFront();
+      // Loop through List to print out all lines in the correct order
+      while(list.index() >= 0) {
+         out.println(token[list.get()]);
+         list.moveNext();
+      }
+     
+      // Close file writers and file openers
+      in.close();
+      out.close();
+   }
+}

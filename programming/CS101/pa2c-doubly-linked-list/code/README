@@ -1,0 +1,23 @@
+Bradley Bernard, bmbernar@ucsc.edu
+CS 101: PA2
+July 7, 2015
+
+List.c
+A doubly linked list creating a List ADT.
+
+ListClient.c
+Weak test of List ADT taken from website.
+
+Lex.c
+Sorts an input file by lexicographic order
+and produces an output file.
+
+List.h
+Definition of the List ADT method signatures.
+
+Makefile
+Boilerplate file in Make taken from the
+PA2 directory to compile all C sources.
+
+README
+A table of contents for each file

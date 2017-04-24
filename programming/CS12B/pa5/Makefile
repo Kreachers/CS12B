@@ -20,4 +20,4 @@ clean :
 	rm -f $(EXEBIN) $(OBJECTS)
 
 check:
-	valgrind --leak-check=full $(EXEBIN) 
+	valgrind --leak-check=full ./$(EXEBIN) 
