@@ -18,7 +18,7 @@ while (input != str("E") or input != str("e")):
       print("L")
    if (input == str("G") or input == str("g")):
       print("G")
-   input = input("Type 'L', 'G' or 'E': ")
+   inut = input("Type 'L', 'G' or 'E': ")
 
 if (count != 1):
    print("I found your number in " + count + " guesses.")
