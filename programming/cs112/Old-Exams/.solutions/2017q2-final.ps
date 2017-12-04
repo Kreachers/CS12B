@@ -1,0 +1,1114 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 18 36 594 756
+%%Title: 2017q2-final.ps
+%%Creator: GNU Enscript 1.6.5.90
+%%CreationDate: Wed Jun 14 17:37:41 2017
+%%Orientation: Portrait
+%%Pages: (atend)
+%%DocumentMedia: Letter 612 792 0 () ()
+%%DocumentNeededResources: (atend)
+%%EndComments
+%%BeginProlog
+%%BeginResource: procset Enscript-Prolog 1.6.5 90
+%
+% Procedures.
+%
+
+/_S {	% save current state
+  /_s save def
+} def
+/_R {	% restore from saved state
+  _s restore
+} def
+
+/S {	% showpage protecting gstate
+  gsave
+  showpage
+  grestore
+} bind def
+
+/MF {	% fontname newfontname -> -	make a new encoded font
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  % insert only valid encoding vectors
+  encoding_vector length 256 eq {
+    newfont /Encoding encoding_vector put
+  } if
+
+  newfontname newfont definefont pop
+} def
+
+/MF_PS { % fontname newfontname -> -	make a new font preserving its enc
+  /newfontname exch def
+  /fontname exch def
+
+  /fontdict fontname findfont def
+  /newfont fontdict maxlength dict def
+
+  fontdict {
+    exch
+    dup /FID eq {
+      % skip FID pair
+      pop pop
+    } {
+      % copy to the new font dictionary
+      exch newfont 3 1 roll put
+    } ifelse
+  } forall
+
+  newfont /FontName newfontname put
+
+  newfontname newfont definefont pop
+} def
+
+/SF { % fontname width height -> -	set a new font
+  /height exch def
+  /width exch def
+
+  findfont
+  [width 0 0 height 0 0] makefont setfont
+} def
+
+/SUF { % fontname width height -> -	set a new user font
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF
+  /F-gs-user-font width height SF
+} def
+
+/SUF_PS { % fontname width height -> -	set a new user font preserving its enc
+  /height exch def
+  /width exch def
+
+  /F-gs-user-font MF_PS
+  /F-gs-user-font width height SF
+} def
+
+/M {moveto} bind def
+/s {show} bind def
+
+/Box {	% x y w h -> -			define box path
+  /d_h exch def /d_w exch def /d_y exch def /d_x exch def
+  d_x d_y  moveto
+  d_w 0 rlineto
+  0 d_h rlineto
+  d_w neg 0 rlineto
+  closepath
+} def
+
+/bgs {	% x y height blskip gray str -> -	show string with bg color
+  /str exch def
+  /gray exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    gray setgray
+    fill
+  grestore
+  x y M str s
+} def
+
+/bgcs { % x y height blskip red green blue str -> -  show string with bg color
+  /str exch def
+  /blue exch def
+  /green exch def
+  /red exch def
+  /blskip exch def
+  /height exch def
+  /y exch def
+  /x exch def
+
+  gsave
+    x y blskip sub str stringwidth pop height Box
+    red green blue setrgbcolor
+    fill
+  grestore
+  x y M str s
+} def
+
+% Highlight bars.
+/highlight_bars {	% nlines lineheight output_y_margin gray -> -
+  gsave
+    setgray
+    /ymarg exch def
+    /lineheight exch def
+    /nlines exch def
+
+    % This 2 is just a magic number to sync highlight lines to text.
+    0 d_header_y ymarg sub 2 sub translate
+
+    /cw d_output_w cols div def
+    /nrows d_output_h ymarg 2 mul sub lineheight div cvi def
+
+    % for each column
+    0 1 cols 1 sub {
+      cw mul /xp exch def
+
+      % for each rows
+      0 1 nrows 1 sub {
+        /rn exch def
+        rn lineheight mul neg /yp exch def
+        rn nlines idiv 2 mod 0 eq {
+	  % Draw highlight bar.  4 is just a magic indentation.
+	  xp 4 add yp cw 8 sub lineheight neg Box fill
+	} if
+      } for
+    } for
+
+  grestore
+} def
+
+% Line highlight bar.
+/line_highlight {	% x y width height gray -> -
+  gsave
+    /gray exch def
+    Box gray setgray fill
+  grestore
+} def
+
+% Column separator lines.
+/column_lines {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h translate
+    /cw d_output_w cols div def
+    1 1 cols 1 sub {
+      cw mul 0 moveto
+      0 d_output_h rlineto stroke
+    } for
+  grestore
+} def
+
+% Column borders.
+/column_borders {
+  gsave
+    .1 setlinewidth
+    0 d_footer_h moveto
+    0 d_output_h rlineto
+    d_output_w 0 rlineto
+    0 d_output_h neg rlineto
+    closepath stroke
+  grestore
+} def
+
+% Do the actual underlay drawing
+/draw_underlay {
+  ul_style 0 eq {
+    ul_str true charpath stroke
+  } {
+    ul_str show
+  } ifelse
+} def
+
+% Underlay
+/underlay {	% - -> -
+  gsave
+    0 d_page_h translate
+    d_page_h neg d_page_w atan rotate
+
+    ul_gray setgray
+    ul_font setfont
+    /dw d_page_h dup mul d_page_w dup mul add sqrt def
+    ul_str stringwidth pop dw exch sub 2 div ul_h_ptsize -2 div moveto
+    draw_underlay
+  grestore
+} def
+
+/user_underlay {	% - -> -
+  gsave
+    ul_x ul_y translate
+    ul_angle rotate
+    ul_gray setgray
+    ul_font setfont
+    0 0 ul_h_ptsize 2 div sub moveto
+    draw_underlay
+  grestore
+} def
+
+% Page prefeed
+/page_prefeed {		% bool -> -
+  statusdict /prefeed known {
+    statusdict exch /prefeed exch put
+  } {
+    pop
+  } ifelse
+} def
+
+% Wrapped line markers
+/wrapped_line_mark {	% x y charwith charheight type -> -
+  /type exch def
+  /h exch def
+  /w exch def
+  /y exch def
+  /x exch def
+
+  type 2 eq {
+    % Black boxes (like TeX does)
+    gsave
+      0 setlinewidth
+      x w 4 div add y M
+      0 h rlineto w 2 div 0 rlineto 0 h neg rlineto
+      closepath fill
+    grestore
+  } {
+    type 3 eq {
+      % Small arrows
+      gsave
+        .2 setlinewidth
+        x w 2 div add y h 2 div add M
+        w 4 div 0 rlineto
+        x w 4 div add y lineto stroke
+
+        x w 4 div add w 8 div add y h 4 div add M
+        x w 4 div add y lineto
+	w 4 div h 8 div rlineto stroke
+      grestore
+    } {
+      % do nothing
+    } ifelse
+  } ifelse
+} def
+
+% EPSF import.
+
+/BeginEPSF {
+  /b4_Inc_state save def    		% Save state for cleanup
+  /dict_count countdictstack def	% Count objects on dict stack
+  /op_count count 1 sub def		% Count objects on operand stack
+  userdict begin
+  /showpage { } def
+  0 setgray 0 setlinecap
+  1 setlinewidth 0 setlinejoin
+  10 setmiterlimit [ ] 0 setdash newpath
+  /languagelevel where {
+    pop languagelevel
+    1 ne {
+      false setstrokeadjust false setoverprint
+    } if
+  } if
+} bind def
+
+/EndEPSF {
+  count op_count sub { pos } repeat	% Clean up stacks
+  countdictstack dict_count sub { end } repeat
+  b4_Inc_state restore
+} bind def
+
+% Check PostScript language level.
+/languagelevel where {
+  pop /gs_languagelevel languagelevel def
+} {
+  /gs_languagelevel 1 def
+} ifelse
+%%EndResource
+%%BeginResource: procset Enscript-Encoding-88591 1.6.5 90
+/encoding_vector [
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclam       	/quotedbl     	/numbersign   	
+/dollar       	/percent      	/ampersand    	/quoteright   	
+/parenleft    	/parenright   	/asterisk     	/plus         	
+/comma        	/hyphen       	/period       	/slash        	
+/zero         	/one          	/two          	/three        	
+/four         	/five         	/six          	/seven        	
+/eight        	/nine         	/colon        	/semicolon    	
+/less         	/equal        	/greater      	/question     	
+/at           	/A            	/B            	/C            	
+/D            	/E            	/F            	/G            	
+/H            	/I            	/J            	/K            	
+/L            	/M            	/N            	/O            	
+/P            	/Q            	/R            	/S            	
+/T            	/U            	/V            	/W            	
+/X            	/Y            	/Z            	/bracketleft  	
+/backslash    	/bracketright 	/asciicircum  	/underscore   	
+/quoteleft    	/a            	/b            	/c            	
+/d            	/e            	/f            	/g            	
+/h            	/i            	/j            	/k            	
+/l            	/m            	/n            	/o            	
+/p            	/q            	/r            	/s            	
+/t            	/u            	/v            	/w            	
+/x            	/y            	/z            	/braceleft    	
+/bar          	/braceright   	/tilde        	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/.notdef      	/.notdef      	/.notdef      	/.notdef      	
+/space        	/exclamdown   	/cent         	/sterling     	
+/currency     	/yen          	/brokenbar    	/section      	
+/dieresis     	/copyright    	/ordfeminine  	/guillemotleft	
+/logicalnot   	/hyphen       	/registered   	/macron       	
+/degree       	/plusminus    	/twosuperior  	/threesuperior	
+/acute        	/mu           	/paragraph    	/bullet       	
+/cedilla      	/onesuperior  	/ordmasculine 	/guillemotright	
+/onequarter   	/onehalf      	/threequarters	/questiondown 	
+/Agrave       	/Aacute       	/Acircumflex  	/Atilde       	
+/Adieresis    	/Aring        	/AE           	/Ccedilla     	
+/Egrave       	/Eacute       	/Ecircumflex  	/Edieresis    	
+/Igrave       	/Iacute       	/Icircumflex  	/Idieresis    	
+/Eth          	/Ntilde       	/Ograve       	/Oacute       	
+/Ocircumflex  	/Otilde       	/Odieresis    	/multiply     	
+/Oslash       	/Ugrave       	/Uacute       	/Ucircumflex  	
+/Udieresis    	/Yacute       	/Thorn        	/germandbls   	
+/agrave       	/aacute       	/acircumflex  	/atilde       	
+/adieresis    	/aring        	/ae           	/ccedilla     	
+/egrave       	/eacute       	/ecircumflex  	/edieresis    	
+/igrave       	/iacute       	/icircumflex  	/idieresis    	
+/eth          	/ntilde       	/ograve       	/oacute       	
+/ocircumflex  	/otilde       	/odieresis    	/divide       	
+/oslash       	/ugrave       	/uacute       	/ucircumflex  	
+/udieresis    	/yacute       	/thorn        	/ydieresis    	
+] def
+%%EndResource
+%%EndProlog
+%%BeginSetup
+%%IncludeResource: font Courier-Bold
+/HFpt_w 10 def
+/HFpt_h 10 def
+/Courier-Bold /HF-gs-font MF
+/HF /HF-gs-font findfont [HFpt_w 0 0 HFpt_h 0 0] makefont def
+/Courier-Bold /F-gs-font MF
+/F-gs-font 11 11 SF
+/#copies 1 def
+% Pagedevice definitions:
+gs_languagelevel 1 gt {
+  <<
+    /PageSize [612 792] 
+  >> setpagedevice
+} if
+%%BeginResource: procset Enscript-Header-enscript-mycolor 1.6.5 90
+%%IncludeResource: font Times-Bold
+%%IncludeResource: font Times-Roman
+
+% Fonts.
+/Times-Bold /HeaderFont-Bold MF
+/HeaderDateF /HeaderFont-Bold findfont 12 scalefont def
+
+/Times-Roman /HeaderFont-Times MF
+/HeaderHDRF /HeaderFont-Times findfont 14 scalefont def
+
+/HeaderPageNumF /Helvetica-Bold findfont 28.8 scalefont def
+/HeaderPageCountF /Helvetica-Bold findfont 18 scalefont def
+
+/do_header {	% print enscript header
+  gsave
+    d_header_x d_header_y translate
+
+    /dhw d_header_w 4 sub def
+
+    /linecolor {0 0 0 setrgbcolor} bind def  % line color
+    /txcolor   {0 0 0 setrgbcolor} bind def  % text color
+    /fncolor   {0 0 0 setrgbcolor} bind def  % filename line color
+
+    .5 setlinewidth
+
+    % line across bottom of the header area
+    linecolor
+    0 0 moveto dhw 0 lineto
+
+    % side boxes
+    /sbw d_header_h 2 mul def	% side box width
+
+    % left side box
+    0 0 sbw d_header_h Box
+    linecolor
+    stroke
+
+    % date/time in left box
+    txcolor
+    HeaderDateF setfont
+    moddatestr dup stringwidth pop sbw exch sub 2 div
+    d_header_h 2 div 2 add moveto show
+    modtimestr dup stringwidth pop sbw exch sub 2 div
+    d_header_h 5 div moveto show
+
+    % right side box
+    dhw sbw sub 0 sbw d_header_h Box
+    linecolor
+    stroke
+
+    % get width of pagecount
+    HeaderPageCountF setfont
+    pagecountstr stringwidth pop
+
+    txcolor
+    HeaderPageNumF setfont
+    pagenumstr stringwidth pop add  % add to width of pagecount
+    sbw exch sub 2 div dhw sbw sub add
+    d_header_h .2 mul moveto
+
+    pagenumstr show
+
+    HeaderPageCountF setfont
+    pagecountstr show
+
+    % filename
+    fncolor
+    HeaderHDRF setfont
+    dhw fname stringwidth pop sub 2 div d_header_h 8 div moveto
+    fname show
+
+    % user supplied header string.
+    user_header_p {
+      /h d_header_h 8 div 5 mul def
+
+      % HACK around a bug in enscript 1.6.0:
+      % for some reason this is getting set to "(null)" and
+      %
+      user_header_center_str (\(null\)) eq {
+        /user_header_center_str () def
+      } if
+
+      % Implement strict enscript compatibility.
+      user_header_center_str () eq user_header_right_str () eq and {
+        dhw user_header_left_str stringwidth pop sub 2 div
+        h moveto user_header_left_str show
+      } {
+        sbw 5 add h moveto user_header_left_str show
+
+        dhw user_header_center_str stringwidth pop sub 2 div
+        h moveto user_header_center_str show
+
+	dhw sbw sub 5 sub user_header_right_str stringwidth pop
+	sub h moveto user_header_right_str show
+      } ifelse
+    } if
+
+  grestore
+} bind def
+%%EndResource
+/d_page_w 576 def
+/d_page_h 720 def
+/d_header_x 0 def
+/d_header_y 684 def
+/d_header_w 576 def
+/d_header_h 36 def
+/d_footer_x 0 def
+/d_footer_y 0 def
+/d_footer_w 576 def
+/d_footer_h 0 def
+/d_output_w 576 def
+/d_output_h 684 def
+/cols 1 def
+%%EndSetup
+%%Page: (1) 1
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 1 def
+/fname (2017q2-final.txt) def
+/fdir (.) def
+/ftail (2017q2-final.txt) def
+% User defined strings:
+/pagenumstr (1) def
+/moddatestr (06/14/17) def
+/pagecountstr (/5) def
+/modtimestr (17:37:41) def
+/user_header_p true def
+/user_header_left_str (/soe/mackey/courses/Exams/solutions/cmps112/2017q2/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+32.4 670 M (1:) s
+52.2 670 M
+($Id: 2017q2-final.txt,v 1.2 2017-06-14 17:37:40-07 - - $) s
+32.4 658 M (2:) s
+52.2 658 M
+(Answers to cmps112-2017q2-final, page 1) s
+32.4 646 M (3:) s
+32.4 634 M (4:) s
+52.2 634 M
+(________________________________________________________________________) s
+32.4 622 M (5:) s
+52.2 622 M
+(Question 1. [1][1]) s
+32.4 610 M (6:) s
+52.2 610 M
+(Any order is acceptable:) s
+32.4 598 M (7:) s
+52.2 598 M
+(edge\(1,2\).) s
+32.4 586 M (8:) s
+52.2 586 M
+(edge\(1,3\).) s
+32.4 574 M (9:) s
+52.2 574 M
+(edge\(2,3\).) s
+25.8 562 M (10:) s
+52.2 562 M
+(edge\(2,5\).) s
+25.8 550 M (11:) s
+52.2 550 M
+(edge\(3,4\).) s
+25.8 538 M (12:) s
+52.2 538 M
+(adjacent\(X,Y\) :- edge\(X,Y\).) s
+25.8 526 M (13:) s
+52.2 526 M
+(adjacent\(X,Y\) :- edge\(Y,X\).) s
+25.8 514 M (14:) s
+25.8 502 M (15:) s
+52.2 502 M
+(________________________________________________________________________) s
+25.8 490 M (16:) s
+52.2 490 M
+(Question 2. [2]) s
+25.8 478 M (17:) s
+52.2 478 M
+(fib      int -> int                   \(1/2 pt for fib, fib'\)) s
+25.8 466 M (18:) s
+52.2 466 M
+(fib'     int -> int -> int -> int) s
+25.8 454 M (19:) s
+52.2 454 M
+(n        int                          \(1/2 pt for each int\)) s
+25.8 442 M (20:) s
+52.2 442 M
+(m        int) s
+25.8 430 M (21:) s
+52.2 430 M
+(a        int) s
+25.8 418 M (22:) s
+52.2 418 M
+(b        int) s
+25.8 406 M (23:) s
+52.2 406 M
+(-        int -> int -> int            \(1/2 pt for - and +\)) s
+25.8 394 M (24:) s
+52.2 394 M
+(+        int -> int -> int) s
+25.8 382 M (25:) s
+52.2 382 M
+(=        'a -> 'a -> bool             \(1/2 pt for = and <\)) s
+25.8 370 M (26:) s
+52.2 370 M
+(<        'a -> 'a -> bool) s
+25.8 358 M (27:) s
+52.2 358 M
+(failwith string -> 'a) s
+25.8 346 M (28:) s
+25.8 334 M (29:) s
+52.2 334 M
+(________________________________________________________________________) s
+25.8 322 M (30:) s
+52.2 322 M
+(Question 3. [2][1]) s
+25.8 310 M (31:) s
+52.2 310 M
+(let car list = match list with        \(1 pt for car\)) s
+25.8 298 M (32:) s
+52.2 298 M
+(  | [] -> failwith "car []") s
+25.8 286 M (33:) s
+52.2 286 M
+(  | x::_ -> x;;) s
+25.8 274 M (34:) s
+52.2 274 M
+(let cdr list = match list with        \(1 pt for cdr\)) s
+25.8 262 M (35:) s
+52.2 262 M
+(  | [] -> failwith "cdr []") s
+25.8 250 M (36:) s
+52.2 250 M
+(  | _::xs -> xs;;) s
+25.8 238 M (37:) s
+52.2 238 M
+(car : 'a list -> 'a = <fun>           \(1/2 pt for each type spec\)) s
+25.8 226 M (38:) s
+52.2 226 M
+(cdr : 'a list -> 'a list = <fun>) s
+25.8 214 M (39:) s
+25.8 202 M (40:) s
+52.2 202 M
+(________________________________________________________________________) s
+25.8 190 M (41:) s
+52.2 190 M
+(Question 4. [1][1]) s
+25.8 178 M (42:) s
+52.2 178 M
+(sum\([],0\).) s
+25.8 166 M (43:) s
+52.2 166 M
+(sum\([H|T],S\) :- sum\(T,U\), S is U + H.) s
+25.8 154 M (44:) s
+52.2 154 M
+(lengthh\([],0\).) s
+25.8 142 M (45:) s
+52.2 142 M
+(lengthh\([H|T],L\) :- lengthh\(T,U\), L is U + 1.) s
+25.8 130 M (46:) s
+25.8 118 M (47:) s
+52.2 118 M
+(________________________________________________________________________) s
+25.8 106 M (48:) s
+52.2 106 M
+(Question 5. [1]) s
+25.8 94 M (49:) s
+52.2 94 M
+([1:-]--->[2:-]--->[|:-]-------------->[|:-]--->[7:o]) s
+25.8 82 M (50:) s
+52.2 82 M
+(                   V                   V) s
+25.8 70 M (51:) s
+52.2 70 M
+(                  [3:-]--->[4:o]      [|:-]--->[6:o]) s
+25.8 58 M (52:) s
+52.2 58 M
+(                                       V) s
+25.8 46 M (53:) s
+52.2 46 M
+(                                      [5:o]) s
+_R
+S
+%%Page: (2) 2
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 2 def
+/fname (2017q2-final.txt) def
+/fdir (.) def
+/ftail (2017q2-final.txt) def
+% User defined strings:
+/pagenumstr (2) def
+/moddatestr (06/14/17) def
+/pagecountstr (/5) def
+/modtimestr (17:37:41) def
+/user_header_p true def
+/user_header_left_str (/soe/mackey/courses/Exams/solutions/cmps112/2017q2/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+25.8 670 M (54:) s
+25.8 658 M (55:) s
+52.2 658 M
+(Answers to cmps112-2017q2-final, page 2) s
+25.8 646 M (56:) s
+25.8 634 M (57:) s
+52.2 634 M
+(________________________________________________________________________) s
+25.8 622 M (58:) s
+52.2 622 M
+(Question 6. [2]) s
+25.8 610 M (59:) s
+25.8 598 M (60:) s
+52.2 598 M
+(C++      |Bjarne Stroustrup's most noted contribution.) s
+25.8 586 M (61:) s
+52.2 586 M
+(COBOL    |Business data processing language, Grace Hopper.) s
+25.8 574 M (62:) s
+52.2 574 M
+(LISP     |List processing with Lots of Idiotic Silly Parentheses.) s
+25.8 562 M (63:) s
+52.2 562 M
+(FORTRAN  |Numeric and scientific computation language developed at IBM.) s
+25.8 550 M (64:) s
+52.2 550 M
+(Simula 67|Simulation language that influenced the design of C++.) s
+25.8 538 M (65:) s
+52.2 538 M
+(Pascal   |Small language for structured programming designed by Niklaus Wirth.) s
+25.8 526 M (66:) s
+25.8 514 M (67:) s
+52.2 514 M
+(________________________________________________________________________) s
+25.8 502 M (68:) s
+52.2 502 M
+(Question 7. [4]) s
+25.8 490 M (69:) s
+25.8 478 M (70:) s
+52.2 478 M
+(Array extend [) s
+25.8 466 M (71:) s
+52.2 466 M
+(   max [) s
+25.8 454 M (72:) s
+52.2 454 M
+(      \(self size = 0\)) s
+25.8 442 M (73:) s
+52.2 442 M
+(      ifTrue: [ ^ nil ]) s
+25.8 430 M (74:) s
+52.2 430 M
+(      ifFalse: [ |mx|) s
+25.8 418 M (75:) s
+52.2 418 M
+(         mx := self at: 1.) s
+25.8 406 M (76:) s
+52.2 406 M
+(         2 to: self size do: [ :i |) s
+25.8 394 M (77:) s
+52.2 394 M
+(            \(\(self at: i\) > mx\) ifTrue: [mx := self at: i].) s
+25.8 382 M (78:) s
+52.2 382 M
+(         ].) s
+25.8 370 M (79:) s
+52.2 370 M
+(         ^ mx.) s
+25.8 358 M (80:) s
+52.2 358 M
+(      ]) s
+25.8 346 M (81:) s
+52.2 346 M
+(   ]) s
+25.8 334 M (82:) s
+52.2 334 M
+(].) s
+25.8 322 M (83:) s
+25.8 310 M (84:) s
+52.2 310 M
+(________________________________________________________________________) s
+25.8 298 M (85:) s
+52.2 298 M
+(Question 8. [2]) s
+25.8 286 M (86:) s
+25.8 274 M (87:) s
+52.2 274 M
+(\(define \(reverse list\)) s
+25.8 262 M (88:) s
+52.2 262 M
+(        \(define \(rev in out\)) s
+25.8 250 M (89:) s
+52.2 250 M
+(                \(if \(null? in\) out) s
+25.8 238 M (90:) s
+52.2 238 M
+(                    \(rev \(cdr in\) \(cons \(car in\) out\)\)\)\)) s
+25.8 226 M (91:) s
+52.2 226 M
+(        \(rev list '\(\)\)\)) s
+25.8 214 M (92:) s
+25.8 202 M (93:) s
+52.2 202 M
+(________________________________________________________________________) s
+25.8 190 M (94:) s
+52.2 190 M
+(Question 9. [2]) s
+25.8 178 M (95:) s
+25.8 166 M (96:) s
+52.2 166 M
+(let sum = List.fold_left \(+\) 0;;) s
+25.8 154 M (97:) s
+52.2 154 M
+(let length = List.fold_left \(fun n _ -> n + 1\) 0;;) s
+25.8 142 M (98:) s
+_R
+S
+%%Page: (3) 3
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 3 def
+/fname (2017q2-final.txt) def
+/fdir (.) def
+/ftail (2017q2-final.txt) def
+% User defined strings:
+/pagenumstr (3) def
+/moddatestr (06/14/17) def
+/pagecountstr (/5) def
+/modtimestr (17:37:41) def
+/user_header_p true def
+/user_header_left_str (/soe/mackey/courses/Exams/solutions/cmps112/2017q2/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+25.8 670 M (99:) s
+19.2 658 M (100:) s
+52.2 658 M
+(Answers to cmps112-2017q2-final, page 3) s
+19.2 646 M (101:) s
+19.2 634 M (102:) s
+52.2 634 M
+(________________________________________________________________________) s
+19.2 622 M (103:) s
+52.2 622 M
+(Question 10. [1]) s
+19.2 610 M (104:) s
+19.2 598 M (105:) s
+52.2 598 M
+(let twice f x = f \(f x\);;) s
+19.2 586 M (106:) s
+19.2 574 M (107:) s
+52.2 574 M
+(________________________________________________________________________) s
+19.2 562 M (108:) s
+52.2 562 M
+(Question 11. [2]) s
+19.2 550 M (109:) s
+19.2 538 M (110:) s
+52.2 538 M
+(father\( F, C\) :- parents\( F, _, C\).) s
+19.2 526 M (111:) s
+52.2 526 M
+(mother\( M, C\) :- parents\( _, M, C\).) s
+19.2 514 M (112:) s
+19.2 502 M (113:) s
+52.2 502 M
+(________________________________________________________________________) s
+19.2 490 M (114:) s
+52.2 490 M
+(Question 12. [1][1][1]) s
+19.2 478 M (115:) s
+19.2 466 M (116:) s
+52.2 466 M
+(\(define \(oddlen list\)) s
+19.2 454 M (117:) s
+52.2 454 M
+(        \(cond \(\(null? list\) #f\)) s
+19.2 442 M (118:) s
+52.2 442 M
+(              \(\(null? \(cdr list\)\) #t\)) s
+19.2 430 M (119:) s
+52.2 430 M
+(              \(else \(oddlen \(cddr list\)\)\)\)\)) s
+19.2 418 M (120:) s
+19.2 406 M (121:) s
+52.2 406 M
+(let rec oddlen list = match list with) s
+19.2 394 M (122:) s
+52.2 394 M
+(    | [] -> false) s
+19.2 382 M (123:) s
+52.2 382 M
+(    | [_] -> true) s
+19.2 370 M (124:) s
+52.2 370 M
+(    | x::y::tail -> oddlen tail) s
+19.2 358 M (125:) s
+19.2 346 M (126:) s
+52.2 346 M
+(oddlen\([_]\).) s
+19.2 334 M (127:) s
+52.2 334 M
+(oddlen\([H1,H2|T]\) :- oddlen\(T\).) s
+19.2 322 M (128:) s
+19.2 310 M (129:) s
+52.2 310 M
+(________________________________________________________________________) s
+19.2 298 M (130:) s
+52.2 298 M
+(Question 13. [2][2]) s
+19.2 286 M (131:) s
+19.2 274 M (132:) s
+52.2 274 M
+(let rec map f lis = match lis with) s
+19.2 262 M (133:) s
+52.2 262 M
+(    | [] -> []) s
+19.2 250 M (134:) s
+52.2 250 M
+(    | x::xs -> f x :: map f xs;;) s
+19.2 238 M (135:) s
+19.2 226 M (136:) s
+52.2 226 M
+(\(define \(map f lis\)) s
+19.2 214 M (137:) s
+52.2 214 M
+(        \(if \(null? lis\) '\(\)) s
+19.2 202 M (138:) s
+52.2 202 M
+(            \(cons \(f \(car lis\)\) \(map f \(cdr lis\)\)\)\)\)) s
+19.2 190 M (139:) s
+_R
+S
+%%Page: (4) 4
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 4 def
+/fname (2017q2-final.txt) def
+/fdir (.) def
+/ftail (2017q2-final.txt) def
+% User defined strings:
+/pagenumstr (4) def
+/moddatestr (06/14/17) def
+/pagecountstr (/5) def
+/modtimestr (17:37:41) def
+/user_header_p true def
+/user_header_left_str (/soe/mackey/courses/Exams/solutions/cmps112/2017q2/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+19.2 670 M (140:) s
+19.2 658 M (141:) s
+52.2 658 M
+(Answers to cmps112-2017q2-final, page 4) s
+19.2 646 M (142:) s
+19.2 634 M (143:) s
+52.2 634 M
+( 1.    \(C\) $ O \( n \) $) s
+19.2 622 M (144:) s
+19.2 610 M (145:) s
+52.2 610 M
+( 2.    \(A\) $ O \( 1 \) $) s
+19.2 598 M (146:) s
+19.2 586 M (147:) s
+52.2 586 M
+( 3.    \(D\) - : int -> int -> int = <fun>) s
+19.2 574 M (148:) s
+19.2 562 M (149:) s
+52.2 562 M
+( 4.    \(D\) vector) s
+19.2 550 M (150:) s
+19.2 538 M (151:) s
+52.2 538 M
+( 5.    \(C\) A structure on the heap, used to hold variables of an outer) s
+19.2 526 M (152:) s
+52.2 526 M
+(           function when referenced by an inner function.) s
+19.2 514 M (153:) s
+19.2 502 M (154:) s
+52.2 502 M
+( 6.    \(C\) $ O \( n \) $) s
+19.2 490 M (155:) s
+19.2 478 M (156:) s
+52.2 478 M
+( 7.    \(D\) \(cddr '\(1 2 3 4\)\)) s
+19.2 466 M (157:) s
+19.2 454 M (158:) s
+52.2 454 M
+( 8.    \(C\) [1 + 4] value.) s
+19.2 442 M (159:) s
+19.2 430 M (160:) s
+52.2 430 M
+( 9.    \(A\) \(\(2*3\)+4\)*5) s
+19.2 418 M (161:) s
+19.2 406 M (162:) s
+52.2 406 M
+(10.    \(A\) strong and dynamic) s
+19.2 394 M (163:) s
+19.2 382 M (164:) s
+52.2 382 M
+(11.    \(A\) \(apply * '\(1 2 3 4\)\)) s
+19.2 370 M (165:) s
+19.2 358 M (166:) s
+52.2 358 M
+(12.    \(C\) Edsger W. Dijkstra) s
+19.2 346 M (167:) s
+_R
+S
+%%Page: (5) 5
+%%BeginPageSetup
+_S
+18 36 translate
+/pagenum 5 def
+/fname (2017q2-final.txt) def
+/fdir (.) def
+/ftail (2017q2-final.txt) def
+% User defined strings:
+/pagenumstr (5) def
+/moddatestr (06/14/17) def
+/pagecountstr (/5) def
+/modtimestr (17:37:41) def
+/user_header_p true def
+/user_header_left_str (/soe/mackey/courses/Exams/solutions/cmps112/2017q2/) def
+/user_header_center_str () def
+/user_header_right_str () def
+/user_footer_p false def
+%%EndPageSetup
+column_borders
+do_header
+19.2 670 M (168:) s
+19.2 658 M (169:) s
+52.2 658 M
+(Answers to cmps112-2017q2-final, page 4) s
+19.2 646 M (170:) s
+19.2 634 M (171:) s
+52.2 634 M
+( 1.    \(C\) monad) s
+19.2 622 M (172:) s
+19.2 610 M (173:) s
+52.2 610 M
+( 2.    \(D\) Smalltalk) s
+19.2 598 M (174:) s
+19.2 586 M (175:) s
+52.2 586 M
+( 3.    \(C\) a+) s
+19.2 574 M (176:) s
+19.2 562 M (177:) s
+52.2 562 M
+( 4.    \(C\) $x = "$foo\\n";) s
+19.2 550 M (178:) s
+19.2 538 M (179:) s
+52.2 538 M
+( 5.    \(B\) c\(\)) s
+19.2 526 M (180:) s
+19.2 514 M (181:) s
+52.2 514 M
+( 6.    \(C\) 'a list -> 'a) s
+19.2 502 M (182:) s
+19.2 490 M (183:) s
+52.2 490 M
+( 7.    \(C\) universal inclusion) s
+19.2 478 M (184:) s
+19.2 466 M (185:) s
+52.2 466 M
+( 8.    \(B\) ad hoc overloading) s
+19.2 454 M (186:) s
+19.2 442 M (187:) s
+52.2 442 M
+( 9.    \(D\) universal parametric) s
+19.2 430 M (188:) s
+19.2 418 M (189:) s
+52.2 418 M
+(10.    \(A\) ad hoc conversion) s
+19.2 406 M (190:) s
+19.2 394 M (191:) s
+52.2 394 M
+(11.    \(D\) throw) s
+19.2 382 M (192:) s
+19.2 370 M (193:) s
+52.2 370 M
+(12.    \(A\) Algol 60) s
+19.2 358 M (194:) s
+19.2 346 M (195:) s
+_R
+S
+%%Trailer
+%%Pages: 5
+%%DocumentNeededResources: font Times-Roman Courier-Bold Times-Bold 
+%%EOF

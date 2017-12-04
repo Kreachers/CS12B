@@ -1,0 +1,43 @@
+
+http://www2.ucsc.edu/courses/cmps112-wm/:/
+/afs/cats.ucsc.edu/courses/cmps112-wm
+. Thu Nov  2. ASG 2 DUE.     http:Assignments/asg2-ocaml-dc/
+. Tue Nov  7. MIDTERM TEST.  http:Old-Exams/
+. Wed Nov  8. End withdraw.
+. Fri Nov 10. Holiday - Veterans.
+. Mon Nov 20. ASG 3 DUE.     http:Assignments/asg3-*
+. Thu Nov 23. Holiday - Thanksgiving.
+. Fri Nov 24. Holiday - Thanksgiving.
+. Wed Dec  6. ASG 4 DUE.     http:Assignments/asg4-*
+. Fri Dec  8. End instruction.
+. Tue Dec 12. FINAL EXAM.    http:Old-Exams/ 7:30pm--9:30pm
+. Wed Dec 20. Grades due.
+HEADER: HEADER.cat
+README: Readme.all.cmps112.txt,v 1.119 2017-10-19 13:46:17-07
+Lectures: Syllabus/README.txt
+
++----------+----------+----------+----------+----------+----------+----------+
+|          |          |Tue Oct 24|Wed Oct 25|Thu Oct 26|Fri Oct 27|Sat Oct 28|
++----------+----------+----------+----------+----------+----------+----------+
+|Sun Oct 29|Mon Oct 30|Tue Oct 31|Wed Nov  1|Thu Nov  2|Fri Nov  3|Sat Nov  4|
+|          |          |          |          |ASG 2 DUE |          |          |
++----------+----------+----------+----------+----------+----------+----------+
+|Sun Nov  5|Mon Nov  6|Tue Nov  7|Wed Nov  8|Thu Nov  9|Fri Nov 10|Sat Nov 11|
+|          |          |MIDTERM TE|End withdr|          |Holiday - |          |
++----------+----------+----------+----------+----------+----------+----------+
+|Sun Nov 12|Mon Nov 13|Tue Nov 14|Wed Nov 15|Thu Nov 16|Fri Nov 17|Sat Nov 18|
++----------+----------+----------+----------+----------+----------+----------+
+|Sun Nov 19|Mon Nov 20|Tue Nov 21|Wed Nov 22|Thu Nov 23|Fri Nov 24|Sat Nov 25|
+|          |ASG 3 DUE |          |          |Holiday - |Holiday - |          |
++----------+----------+----------+----------+----------+----------+----------+
+|Sun Nov 26|Mon Nov 27|Tue Nov 28|Wed Nov 29|Thu Nov 30|Fri Dec  1|Sat Dec  2|
++----------+----------+----------+----------+----------+----------+----------+
+|Sun Dec  3|Mon Dec  4|Tue Dec  5|Wed Dec  6|Thu Dec  7|Fri Dec  8|Sat Dec  9|
+|          |          |          |ASG 4 DUE |          |End instru|          |
++----------+----------+----------+----------+----------+----------+----------+
+|Sun Dec 10|Mon Dec 11|Tue Dec 12|Wed Dec 13|Thu Dec 14|Fri Dec 15|Sat Dec 16|
+|          |          |FINAL EXAM|          |          |          |          |
++----------+----------+----------+----------+----------+----------+----------+
+|Sun Dec 17|Mon Dec 18|Tue Dec 19|Wed Dec 20|          |          |          |
+|          |          |          |Grades due|          |          |          |
++----------+----------+----------+----------+----------+----------+----------+
