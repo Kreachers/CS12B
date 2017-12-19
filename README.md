@@ -1,4 +1,4 @@
 # School Stuff
 My stuff. Go away.
 
-This is my github for school work as well as stuff i get from other places that i use
+This is my github for CS school work.
